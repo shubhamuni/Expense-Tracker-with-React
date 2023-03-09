@@ -24,8 +24,8 @@ function App() {
           <Route path="/expensepage">
             {authCtx.isLoggedIn && <ExpensePage />}
           </Route>
-          <Route path="/completeprofile">
-            <CompleteProfile />
+          <Route path="/completeprofile" exact>
+            {authCtx.isLoggedIn && <CompleteProfile />}
           </Route>
           <Route path="/profile">{authCtx.isLoggedIn && <Profile />}</Route>
         </Switch>

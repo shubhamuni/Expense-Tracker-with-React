@@ -6,6 +6,24 @@ import classes from "./WelcomePage.module.css";
 
 const WelcomePage = () => {
   const authCtx = useContext(authContext);
+  const token = localStorage.getItem("token");
+  fetch(
+    "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAZ58t-_MvVDQ3e_pDLaFu4YWhyu7Ix4Xc",
+    {
+      method: "POST",
+      body: JSON.stringify({
+        idToken: token, // For logging we require these keys
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  ).then((res) => {
+    if (res.ok) {
+      console.log(res);
+      return res.json();
+    }
+  });
   return (
     <Fragment>
       <div>
@@ -13,13 +31,12 @@ const WelcomePage = () => {
           <Alert key="danger" variant="danger">
             Your Profile is Incomplete
             <Link
-              to="/ completeprofile"
+              to="/completeprofile"
               style={{
                 textDecoration: "none",
                 color: "#111",
               }}
             >
-              {" "}
               Please complete
             </Link>
           </Alert>

@@ -6,10 +6,11 @@ import classes from "./CompleteProfile.module.css";
 
 const CompleteProfile = () => {
   const history = useHistory();
-  const authCtx = useContext(authContext);
+  const token = localStorage.getItem("token");
   const fullNameInputRef = useRef();
   const profilePhotoInputRef = useRef();
 
+  const photo = null;
   const submitHandler = () => {
     const enteredFullName = fullNameInputRef.current.value;
     const enteredprofileURL = profilePhotoInputRef.current.value;
@@ -18,11 +19,11 @@ const CompleteProfile = () => {
       {
         method: "POST",
         body: JSON.stringify({
-          idToken: authCtx.token,
+          idToken: token,
           displayName: enteredFullName,
           photoUrl: enteredprofileURL,
-          deleteAttribute: ["PHOTO", "FULLNAME"],
-          returnSecureToken: false,
+          deleteAttribute: ["PHOTO_URL"],
+          returnSecureToken: true,
         }),
         headers: {
           "Content-Type": "/application.json",
