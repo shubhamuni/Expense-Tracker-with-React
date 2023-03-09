@@ -21,12 +21,17 @@ const WelcomePage = () => {
           "Content-type": "application/json",
         },
       }
-    ).then((res) => {
-      if (res.ok) {
-        console.log("sucess");
-        return res.json();
-      }
-    });
+    )
+      .then((res) => {
+        if (res.ok) {
+          console.log("sucess");
+          authCtx.verifyEmail(true);
+          return res.json();
+        }
+      })
+      .then((data) => {
+        //name saved into context saved to context
+      });
   };
 
   if (!authCtx.displayName) {
@@ -84,9 +89,11 @@ const WelcomePage = () => {
             Please Login or Create Account
           </Link>
         )}
-        <Button variant="dark" onClick={verifyEmailHandler}>
-          Click here to verify email
-        </Button>
+        {!authCtx.verifyEmail && (
+          <Button variant="dark" onClick={verifyEmailHandler}>
+            Click here to verify email
+          </Button>
+        )}
       </div>
     </Fragment>
   );
