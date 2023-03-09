@@ -18,7 +18,7 @@ function App() {
             {!authCtx.isLoggedIn && <AuthForm />}
           </Route>
           <Route path="/" exact>
-            {!authCtx.isLoggedIn && <WelcomePage />}
+            <WelcomePage />
           </Route>
           <Route path="/expensepage">
             {authCtx.isLoggedIn && <ExpensePage />}
