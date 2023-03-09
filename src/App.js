@@ -5,6 +5,7 @@ import AuthForm from "./Authentication/AuthForm";
 import ExpensePage from "./Components/Expense/ExpensePage";
 import Header from "./Components/Layout/Header";
 import WelcomePage from "./Components/Layout/WelcomePage";
+import CompleteProfile from "./Components/Profile/CompleteProfile";
 import { Profile } from "./Components/Profile/Profile";
 import authContext from "./Store/AuthContext";
 
@@ -22,6 +23,9 @@ function App() {
           </Route>
           <Route path="/expensepage">
             {authCtx.isLoggedIn && <ExpensePage />}
+          </Route>
+          <Route path="/completeprofile">
+            <CompleteProfile />
           </Route>
           <Route path="/profile">{authCtx.isLoggedIn && <Profile />}</Route>
         </Switch>
