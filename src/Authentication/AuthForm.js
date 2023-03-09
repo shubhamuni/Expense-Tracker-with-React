@@ -51,7 +51,7 @@ const AuthForm = () => {
           return res.json();
         } else {
           return res.json().then((data) => {
-            let errorMessage = "Something Went Wrong";
+            let errorMessage = "Invalid Credentials";
 
             throw new Error(errorMessage);
           });
@@ -60,7 +60,7 @@ const AuthForm = () => {
       .then((data) => {
         //Login token saved to context
         authCtx.login(data.idToken);
-        // send the page to Store if successfully logged in
+        // send the page to Homepage if successfully logged in
         history.replace("/");
       })
       .catch((err) => {
@@ -78,11 +78,11 @@ const AuthForm = () => {
         <h1>{isLogin ? "Login" : "Sign Up"}</h1>
         <form onSubmit={submitHandler}>
           <div className={classes.control}>
-            <label htmlFor="email">Your Email</label>
+            <label htmlFor="email"> Email</label>
             <input type="email" id="email" required ref={emailInputRef} />
           </div>
           <div className={classes.control}>
-            <label htmlFor="password">Your Password</label>
+            <label htmlFor="password"> Password</label>
             <input
               type="password"
               id="password"
@@ -90,6 +90,17 @@ const AuthForm = () => {
               ref={passwordInputRef}
             />
           </div>
+          {!isLogin && (
+            <div className={classes.control}>
+              <label htmlFor="confirm password">Confirm Password</label>
+              <input
+                type="password"
+                id="confirm password"
+                required
+                ref={passwordInputRef}
+              />
+            </div>
+          )}
           <div className={classes.actions}>
             <button>{content}</button>
             <button

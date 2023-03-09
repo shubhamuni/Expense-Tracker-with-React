@@ -3,7 +3,7 @@
   width: 95%;
   max-width: 25rem;
   border-radius: 6px;
-  background-color: #4e4e50;
+  background-color: #66a464;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   padding: 1rem;
   text-align: center;
@@ -47,21 +47,21 @@
   cursor: pointer;
   font: inherit;
   color: white;
-  background-color: #434144;
-  border: 1px solid #bab6bd;
+  background-color: #8dd797;
+  border: 1px solid #afeeaf;
   border-radius: 4px;
   padding: 0.5rem 2.5rem;
 }
 
 .actions button:hover {
-  background-color: #c5c1c8;
+  background-color: #afeeaf;
   border-color: #fcfbfd;
 }
 
 .actions .toggle {
   margin-top: 1rem;
   background-color: transparent;
-  color: #a8a4aa;
+  color: #37f131;
   border: none;
   padding: 0.15rem 1.5rem;
 }

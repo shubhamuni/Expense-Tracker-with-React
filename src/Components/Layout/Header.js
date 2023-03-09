@@ -6,11 +6,10 @@ import authContext from "../../Store/AuthContext";
 const Header = (props) => {
   const authCtx = useContext(authContext);
   const login = authCtx.isLoggedIn;
-  console.log(login);
   return (
     <Fragment>
       <div>
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="dark" variant="dark" expand="lg">
           <Container>
             <Navbar.Brand>Expense Tracker</Navbar.Brand>
             <Nav className="me-auto">
@@ -28,14 +27,14 @@ const Header = (props) => {
               )}
               {login && (
                 <NavLink
-                  to="/"
+                  to="/profile"
                   style={{
                     textDecoration: "none",
                     margin: "5px",
                     color: "#f3f3f3",
                   }}
                 >
-                  Features
+                  Profile
                 </NavLink>
               )}
               {!login && (
