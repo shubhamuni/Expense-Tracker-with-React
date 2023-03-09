@@ -21,7 +21,6 @@ const AuthForm = () => {
 
     const enteredEmail = emailInputRef.current.value; //Takes the input from authentication form
     const enteredPassword = passwordInputRef.current.value; //Takes the input from authentication
-    localStorage.setItem("email", enteredEmail);
     // optional: Add validation
 
     setIsLoading(true);

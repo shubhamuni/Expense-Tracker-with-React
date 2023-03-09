@@ -9,8 +9,12 @@ const CartProvider = (props) => {
     localStorage.setItem("token", token);
     setToken(true);
   };
+  const displayNameHandler = (name) => {
+    localStorage.setItem("name", name);
+  };
   const logoutHandler = (token) => {
     localStorage.removeItem("token");
+    localStorage.removeItem("name");
     setToken(null);
   };
   const context = {
@@ -18,6 +22,7 @@ const CartProvider = (props) => {
     isLoggedIn: userIsLoggedIn,
     login: loginHandler,
     logout: logoutHandler,
+    displayName: displayNameHandler,
   };
   return (
     <authContext.Provider value={context}>

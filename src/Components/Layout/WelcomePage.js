@@ -1,5 +1,5 @@
 import { Fragment, useContext } from "react";
-import { Alert } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import authContext from "../../Store/AuthContext";
 import classes from "./WelcomePage.module.css";
@@ -7,29 +7,58 @@ import classes from "./WelcomePage.module.css";
 const WelcomePage = () => {
   const authCtx = useContext(authContext);
   const token = localStorage.getItem("token");
-  fetch(
-    "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAZ58t-_MvVDQ3e_pDLaFu4YWhyu7Ix4Xc",
-    {
-      method: "POST",
-      body: JSON.stringify({
-        idToken: token, // For logging we require these keys
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  ).then((res) => {
-    if (res.ok) {
-      console.log(res);
-      return res.json();
-    }
-  });
+  const key = "AIzaSyAZ58t-_MvVDQ3e_pDLaFu4YWhyu7Ix4Xc";
+  const verifyEmailHandler = () => {
+    fetch(
+      `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${key}`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          requestType: "VERIFY_EMAIL",
+          idToken: token,
+        }),
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    ).then((res) => {
+      if (res.ok) {
+        console.log("sucess");
+        return res.json();
+      }
+    });
+  };
+
+  if (!authCtx.displayName) {
+    fetch(
+      `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${key}`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          idToken: token, // For logging we require these keys
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then((data) => {
+        //name saved into context saved to context
+        authCtx.displayName(data.users[0].displayName);
+      });
+  }
+  const name = localStorage.getItem("name");
   return (
     <Fragment>
       <div>
-        {authCtx.isLoggedIn && (
+        {authCtx.isLoggedIn && !name && (
           <Alert key="danger" variant="danger">
-            Your Profile is Incomplete
+            Your Profile is Incomplete....
             <Link
               to="/completeprofile"
               style={{
@@ -43,7 +72,7 @@ const WelcomePage = () => {
         )}
       </div>
       <div className={classes.title}>
-        <h1>Welcome to My Expense Tracker</h1>
+        <h1>Welcome to Expense Tracker {name}</h1>
         {!authCtx.isLoggedIn && (
           <Link
             to="/authform"
@@ -55,6 +84,9 @@ const WelcomePage = () => {
             Please Login or Create Account
           </Link>
         )}
+        <Button variant="dark" onClick={verifyEmailHandler}>
+          Click here to verify email
+        </Button>
       </div>
     </Fragment>
   );

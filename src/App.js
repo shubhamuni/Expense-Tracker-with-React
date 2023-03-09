@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router";
 import "./App.css";
 import AuthForm from "./Authentication/AuthForm";
 import ExpensePage from "./Components/Expense/ExpensePage";
-import Header from "./Components/Layout/Header";
+import Layout from "./Components/Layout/Layout";
 import WelcomePage from "./Components/Layout/WelcomePage";
 import CompleteProfile from "./Components/Profile/CompleteProfile";
 import { Profile } from "./Components/Profile/Profile";
@@ -12,7 +12,7 @@ import authContext from "./Store/AuthContext";
 function App() {
   const authCtx = useContext(authContext);
   return (
-    <Header>
+    <Layout>
       <main>
         <Switch>
           <Route path="/authform" exact>
@@ -30,7 +30,7 @@ function App() {
           <Route path="/profile">{authCtx.isLoggedIn && <Profile />}</Route>
         </Switch>
       </main>
-    </Header>
+    </Layout>
   );
 }
 

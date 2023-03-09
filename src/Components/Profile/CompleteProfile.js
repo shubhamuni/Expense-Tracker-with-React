@@ -1,7 +1,6 @@
-import React, { useContext, useRef } from "react";
+import React, { useRef } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import authContext from "../../Store/AuthContext";
 import classes from "./CompleteProfile.module.css";
 
 const CompleteProfile = () => {
@@ -10,19 +9,17 @@ const CompleteProfile = () => {
   const fullNameInputRef = useRef();
   const profilePhotoInputRef = useRef();
 
-  const photo = null;
   const submitHandler = () => {
     const enteredFullName = fullNameInputRef.current.value;
     const enteredprofileURL = profilePhotoInputRef.current.value;
     fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:update?key=key=AIzaSyAZ58t-_MvVDQ3e_pDLaFu4YWhyu7Ix4Xc",
+      "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAZ58t-_MvVDQ3e_pDLaFu4YWhyu7Ix4Xc",
       {
         method: "POST",
         body: JSON.stringify({
           idToken: token,
           displayName: enteredFullName,
           photoUrl: enteredprofileURL,
-          deleteAttribute: ["PHOTO_URL"],
           returnSecureToken: true,
         }),
         headers: {
@@ -35,14 +32,15 @@ const CompleteProfile = () => {
           history.replace("/");
         }
         if (!res.ok) {
-          throw new Error("Enter correct to Change password");
+          return res.json().then((data) => {
+            let errorMessage = "Something went wrong";
+
+            throw new Error(errorMessage);
+          });
         }
       })
       .then((data) => {
-        alert(data);
-      })
-      .catch((err) => {
-        alert(err);
+        alert("Sucess");
       });
   };
   return (
@@ -54,15 +52,23 @@ const CompleteProfile = () => {
             type="text"
             placeholder="Your Full Name Please"
             ref={fullNameInputRef}
+            minLength={2}
+            required
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
           <Form.Label>Profile Photo URL :</Form.Label>
-          <Form.Control as="textarea" rows={3} ref={profilePhotoInputRef} />
+          <Form.Control
+            as="textarea"
+            rows={3}
+            ref={profilePhotoInputRef}
+            minLength={2}
+            required
+          />
         </Form.Group>
         <Form.Group>
           <Button variant="dark" onClick={submitHandler}>
-            Submit
+            Update
           </Button>
         </Form.Group>
       </Form>
