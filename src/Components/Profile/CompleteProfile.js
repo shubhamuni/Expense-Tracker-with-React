@@ -8,7 +8,9 @@ const CompleteProfile = () => {
   const token = localStorage.getItem("token");
   const fullNameInputRef = useRef();
   const profilePhotoInputRef = useRef();
+  const name = localStorage.getItem("name");
 
+  //Updating profile Details
   const submitHandler = () => {
     const enteredFullName = fullNameInputRef.current.value;
     const enteredprofileURL = profilePhotoInputRef.current.value;
@@ -34,6 +36,7 @@ const CompleteProfile = () => {
         if (!res.ok) {
           return res.json().then((data) => {
             let errorMessage = "Something went wrong";
+            console.log(data);
 
             throw new Error(errorMessage);
           });
@@ -50,7 +53,8 @@ const CompleteProfile = () => {
           <Form.Label>Full Name :</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Your Full Name Please"
+            defaultValue={name}
+            placeholder="Enter name"
             ref={fullNameInputRef}
             minLength={2}
             required

@@ -25,16 +25,16 @@ const WelcomePage = () => {
       .then((res) => {
         if (res.ok) {
           console.log("sucess");
-          authCtx.verifyEmail(true);
           return res.json();
         }
       })
       .then((data) => {
         //name saved into context saved to context
+        console.log(data.email);
       });
   };
 
-  if (!authCtx.displayName) {
+  if (authCtx.displayName) {
     fetch(
       `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${key}`,
       {
@@ -89,7 +89,7 @@ const WelcomePage = () => {
             Please Login or Create Account
           </Link>
         )}
-        {!authCtx.verifyEmail && (
+        {authCtx.isLoggedIn && (
           <Button variant="dark" onClick={verifyEmailHandler}>
             Click here to verify email
           </Button>

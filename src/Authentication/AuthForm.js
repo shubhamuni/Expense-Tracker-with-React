@@ -1,9 +1,10 @@
 import { Fragment, useContext, useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
 import authContext from "./../Store/AuthContext";
 import classes from "./AuthForm.module.css";
 
-const AuthForm = () => {
+const AuthForm = (props) => {
   const history = useHistory();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
@@ -21,6 +22,7 @@ const AuthForm = () => {
 
     const enteredEmail = emailInputRef.current.value; //Takes the input from authentication form
     const enteredPassword = passwordInputRef.current.value; //Takes the input from authentication
+    localStorage.setItem("email", enteredEmail);
     // optional: Add validation
 
     setIsLoading(true);
@@ -68,7 +70,8 @@ const AuthForm = () => {
   };
   let content = isLogin ? "Login" : "Create Account";
   if (isLoading) {
-    content = <p>Sending request.....</p>; //when the user clicks on login/create account then appears
+    content = <p>Sending request.....</p>;
+    //when the user clicks on login/create account then appears
   }
 
   return (
@@ -89,6 +92,16 @@ const AuthForm = () => {
               ref={passwordInputRef}
             />
           </div>
+          {isLogin && (
+            <Link
+              to="/resetpassword"
+              style={{ textDecoration: "none", color: "black" }}
+              className={classes.toggle}
+              onClick={props.onShow}
+            >
+              Forget password?
+            </Link>
+          )}
           {!isLogin && (
             <div className={classes.control}>
               <label htmlFor="confirm password">Confirm Password</label>
@@ -101,7 +114,18 @@ const AuthForm = () => {
             </div>
           )}
           <div className={classes.actions}>
-            <button>{content}</button>
+            <button>
+              {isLoading && (
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+              )}
+              {content}
+            </button>
             <button
               type="button"
               className={classes.toggle}

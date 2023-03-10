@@ -6,6 +6,11 @@ const authContext = React.createContext({
   login: (token) => {},
   logout: () => {},
   displayName: (name) => {},
+  verifyEmail: false,
+  items: [],
+  totalExpense: "",
+  addItem: (item) => {},
+  removeItem: (id) => {},
 });
 
 export default authContext;

@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { Route, Switch } from "react-router";
 import "./App.css";
 import AuthForm from "./Authentication/AuthForm";
-import ExpensePage from "./Components/Expense/ExpensePage";
+import ResetPassword from "./Authentication/ResetPassword";
+import DisplayExpense from "./Components/Expense/DisplayExpense";
 import Layout from "./Components/Layout/Layout";
 import WelcomePage from "./Components/Layout/WelcomePage";
 import CompleteProfile from "./Components/Profile/CompleteProfile";
@@ -18,11 +19,14 @@ function App() {
           <Route path="/authform" exact>
             {!authCtx.isLoggedIn && <AuthForm />}
           </Route>
+          <Route path="/resetpassword">
+            {!authCtx.isLoggedIn && <ResetPassword />}
+          </Route>
           <Route path="/" exact>
             <WelcomePage />
           </Route>
           <Route path="/expensepage">
-            {authCtx.isLoggedIn && <ExpensePage />}
+            {authCtx.isLoggedIn && <DisplayExpense />}
           </Route>
           <Route path="/completeprofile" exact>
             {authCtx.isLoggedIn && <CompleteProfile />}

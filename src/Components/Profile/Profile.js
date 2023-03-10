@@ -1,6 +1,7 @@
 import React, { Fragment, useContext, useRef } from "react";
 import { Button, Container, FloatingLabel, Form } from "react-bootstrap";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import authContext from "../../Store/AuthContext";
 
 export const Profile = () => {
@@ -41,6 +42,9 @@ export const Profile = () => {
   };
   return (
     <Fragment>
+      <Link className="m-2 text-decoration-none" to="/completeprofile">
+        Edit Profile
+      </Link>
       <Container style={{ marginTop: "10rem", width: "30rem" }}>
         <h3 style={{ marginBottom: "20px" }}>Change password</h3>
         <FloatingLabel controlId="floatingPassword" label="Enter New Password">
