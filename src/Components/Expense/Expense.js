@@ -6,7 +6,7 @@ export const Expense = (props) => {
     <ListGroup>
       {props.expense}
       <ListGroup.Item>{props.description}</ListGroup.Item>
-      <ListGroup.Item>{props.date}</ListGroup.Item>
+      <ListGroup.Item>{props.category}</ListGroup.Item>
     </ListGroup>
   );
 };

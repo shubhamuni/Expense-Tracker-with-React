@@ -10,7 +10,7 @@ function ExpensePage(props) {
     const expense = {
       expense: expenseInputRef.current.value,
       description: descriptionInputRef.current.value,
-      date: dateInputRef.current.value,
+      category: dateInputRef.current.value,
     };
 
     props.onAddExpense(expense);
@@ -39,8 +39,8 @@ function ExpensePage(props) {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-            <Form.Label>Date</Form.Label>
-            <Form.Control type="date" ref={dateInputRef} />
+            <Form.Label>Category</Form.Label>
+            <Form.Control type="text" ref={dateInputRef} />
           </Form.Group>
           <Button onClick={addExpenseHandler} variant="dark">
             Add Expense

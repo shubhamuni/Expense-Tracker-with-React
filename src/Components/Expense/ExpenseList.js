@@ -9,7 +9,7 @@ const ExpenseList = (props) => {
           key={expense.id}
           expense={expense.expense}
           description={expense.description}
-          date={expense.date}
+          date={expense.category}
         />
       ))}
     </ListGroup>
