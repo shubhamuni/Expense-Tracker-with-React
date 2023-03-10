@@ -3,6 +3,7 @@ import { Button, FormControl, Modal } from "react-bootstrap";
 
 const ResetPassword = () => {
   const [show, setShow] = useState(false);
+  const [sucess, setSucess] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const emailInputRef = useRef();
@@ -14,7 +15,7 @@ const ResetPassword = () => {
       {
         method: "POST",
         body: JSON.stringify({
-          returnType: "PASSWORD_RESET",
+          requestType: "PASSWORD_RESET",
           email: enteredemail,
         }),
         headers: {
@@ -24,6 +25,14 @@ const ResetPassword = () => {
     );
     const data = await response.json();
     console.log(data);
+    if (data.email === enteredemail) {
+      setShow(false);
+      setSucess(true);
+      alert("Ckeck your email");
+    } else {
+      setShow(true);
+      setSucess(false);
+    }
   };
 
   return (
