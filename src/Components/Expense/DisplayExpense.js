@@ -7,7 +7,7 @@ const DisplayExpense = () => {
   const [error, setError] = useState(null);
 
   async function addExpenseHandler(expense) {
-    const response = fetch(
+    const response = await fetch(
       `https://react-api-8342e-default-rtdb.firebaseio.com/expense.json`,
       {
         method: "POST",
@@ -27,10 +27,6 @@ const DisplayExpense = () => {
       const response = fetch(
         `https://react-api-8342e-default-rtdb.firebaseio.com/expense.json`
       );
-      if (!response.ok) {
-        console.log(response);
-        throw new Error("Something went wrong!");
-      }
 
       const data = await response.json();
 
