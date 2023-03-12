@@ -5,27 +5,14 @@ import ExpensePage from "./ExpensePage";
 const DisplayExpense = () => {
   const [expense, setExpense] = useState([]);
   const [error, setError] = useState(null);
-
-  async function addExpenseHandler(expense) {
-    const response = await fetch(
-      `https://react-api-8342e-default-rtdb.firebaseio.com/expense.json`,
-      {
-        method: "POST",
-        body: JSON.stringify(expense),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = await response.json();
-    console.log(data);
-  }
+  let email = localStorage.getItem("email");
+  email = email.replace(/[^a-zA-Z0-9]/g, "");
 
   const fetchExpenseHandler = useCallback(async () => {
     setError(null);
     try {
-      const response = fetch(
-        `https://react-api-8342e-default-rtdb.firebaseio.com/expense.json`
+      const response = await fetch(
+        `https://react-api-8342e-default-rtdb.firebaseio.com/${email}.json`
       );
 
       const data = await response.json();
@@ -35,25 +22,39 @@ const DisplayExpense = () => {
       for (const key in data) {
         loadedExpenses.push({
           id: key,
-          expense: data[key].expense,
+          expenseamount: data[key].expenseamount,
           description: data[key].description,
-          category: data[key].date,
+          category: data[key].category,
         });
       }
+      console.log(loadedExpenses);
       setExpense(loadedExpenses);
     } catch (error) {
       setError(error.message);
     }
-  }, []);
-
+  }, [email]);
   useEffect(() => {
     fetchExpenseHandler();
   }, [fetchExpenseHandler]);
 
+  const addExpenseHandler = async (expense) => {
+    const response = await fetch(
+      `https://react-api-8342e-default-rtdb.firebaseio.com/${email}.json`,
+      {
+        method: "POST",
+        body: JSON.stringify(expense),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+  };
+
   let content = <p>Found no Expense.</p>;
 
-  if (expense.length > 0) {
-    content = <ExpenseList expense={expense} />;
+  if (expense.length > 1) {
+    content = <ExpenseList expenses={expense} />;
   }
 
   if (error) {

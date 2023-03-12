@@ -5,12 +5,12 @@ import Form from "react-bootstrap/Form";
 function ExpensePage(props) {
   const expenseInputRef = useRef();
   const descriptionInputRef = useRef();
-  const dateInputRef = useRef();
+  const categoryInputRef = useRef();
   const addExpenseHandler = () => {
     const expense = {
-      expense: expenseInputRef.current.value,
+      expenseamount: expenseInputRef.current.value,
       description: descriptionInputRef.current.value,
-      category: dateInputRef.current.value,
+      category: categoryInputRef.current.value,
     };
 
     props.onAddExpense(expense);
@@ -40,7 +40,7 @@ function ExpensePage(props) {
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>Category</Form.Label>
-            <Form.Control type="text" ref={dateInputRef} />
+            <Form.Control type="text" ref={categoryInputRef} />
           </Form.Group>
           <Button onClick={addExpenseHandler} variant="dark">
             Add Expense

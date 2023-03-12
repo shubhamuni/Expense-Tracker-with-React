@@ -1,12 +1,14 @@
 import React from "react";
-import { ListGroup } from "react-bootstrap";
+import { Button, ListGroup } from "react-bootstrap";
 
 export const Expense = (props) => {
   return (
     <ListGroup>
-      {props.expense}
-      <ListGroup.Item>{props.description}</ListGroup.Item>
-      <ListGroup.Item>{props.category}</ListGroup.Item>
+      <ListGroup.Item>Expense $: {props.expenseamount}</ListGroup.Item>
+      <ListGroup.Item>Description: {props.description}</ListGroup.Item>
+      <ListGroup.Item>Category: {props.category}</ListGroup.Item>
+      <Button>Edit</Button>
+      <Button>Delete</Button>
     </ListGroup>
   );
 };

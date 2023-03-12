@@ -55,7 +55,6 @@ const CartProvider = (props) => {
   };
   const displayNameHandler = (name) => {
     localStorage.setItem("name", name);
-    console.log(name);
   };
   const logoutHandler = (token) => {
     localStorage.removeItem("token");
