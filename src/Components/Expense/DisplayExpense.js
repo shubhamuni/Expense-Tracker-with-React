@@ -27,7 +27,6 @@ const DisplayExpense = () => {
           category: data[key].category,
         });
       }
-      console.log(loadedExpenses);
       setExpense(loadedExpenses);
     } catch (error) {
       setError(error.message);

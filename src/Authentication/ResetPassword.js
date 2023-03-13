@@ -28,7 +28,7 @@ const ResetPassword = () => {
     if (data.email === enteredemail) {
       setShow(false);
       setSucess(true);
-      alert("Ckeck your email");
+      alert("Ckeck Your Email");
     } else {
       setShow(true);
       setSucess(false);
