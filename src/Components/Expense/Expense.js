@@ -21,14 +21,17 @@ export const Expense = (props) => {
         console.error(`There was a problem deleting the node: ${error}`);
       });
   };
-
   return (
-    <ListGroup>
+    <div style={{ width: "50rem" }}>
       <ListGroup.Item>Expense $: {props.expenseamount}</ListGroup.Item>
       <ListGroup.Item>Description: {props.description}</ListGroup.Item>
       <ListGroup.Item>Category: {props.category}</ListGroup.Item>
-      <Button>Edit</Button>
-      <Button onClick={deleteHandler}>Delete</Button>
-    </ListGroup>
+      <Button variant="secondary" className="m-2">
+        Edit
+      </Button>
+      <Button variant="dark" onClick={deleteHandler}>
+        Delete
+      </Button>
+    </div>
   );
 };

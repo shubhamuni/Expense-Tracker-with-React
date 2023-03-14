@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useSelector } from "react-redux";
 import { Route, Switch } from "react-router";
 import "./App.css";
 import AuthForm from "./Authentication/AuthForm";
@@ -12,22 +13,19 @@ import authContext from "./Store/AuthContext";
 
 function App() {
   const authCtx = useContext(authContext);
+  const isAuth = useSelector((state) => state.isAuthenticated);
   return (
     <Layout>
       <main>
         <Switch>
           <Route path="/authform" exact>
-            {!authCtx.isLoggedIn && <AuthForm />}
+            {!isAuth && <AuthForm />}
           </Route>
-          <Route path="/resetpassword">
-            {!authCtx.isLoggedIn && <ResetPassword />}
-          </Route>
+          <Route path="/resetpassword">{!isAuth && <ResetPassword />}</Route>
           <Route path="/" exact>
             <WelcomePage />
           </Route>
-          <Route path="/expensepage">
-            {authCtx.isLoggedIn && <DisplayExpense />}
-          </Route>
+          <Route path="/expensepage">{isAuth && <DisplayExpense />}</Route>
           <Route path="/completeprofile" exact>
             {authCtx.isLoggedIn && <CompleteProfile />}
           </Route>

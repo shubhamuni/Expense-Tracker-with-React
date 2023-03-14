@@ -15,10 +15,6 @@ function ExpensePage(props) {
 
     props.onAddExpense(expense);
   };
-  const editHandler = () => {
-    const oldExpense = localStorage.getItem("oldExpense");
-  };
-  props.onEdit(editHandler);
   return (
     <div>
       <Container>
@@ -31,7 +27,6 @@ function ExpensePage(props) {
               type="number"
               placeholder="Enter Expense"
               ref={expenseInputRef}
-              defaultValue={oldExpense.expenseamount}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
