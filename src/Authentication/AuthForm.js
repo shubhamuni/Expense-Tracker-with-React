@@ -1,16 +1,22 @@
-import { Fragment, useContext, useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { Spinner } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import authContext from "./../Store/AuthContext";
+import { authAction } from "../Store/Auth";
+import { loginAction } from "../Store/login";
 import classes from "./AuthForm.module.css";
 
 const AuthForm = (props) => {
   const history = useHistory();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
-  const authCtx = useContext(authContext);
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
+  const handleToken = (token) => {
+    dispatch(loginAction.saveToken(token));
+  };
 
   const switchAuthModeHandler = () => {
     // For swicthing between create account and login with existing account
@@ -60,7 +66,8 @@ const AuthForm = (props) => {
       })
       .then((data) => {
         //Login token saved to context
-        authCtx.login(data.idToken);
+        handleToken(data.idToken);
+        dispatch(authAction.login());
         // send the page to Homepage if successfully logged in
         history.replace("/");
       })

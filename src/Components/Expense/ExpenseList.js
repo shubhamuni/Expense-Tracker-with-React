@@ -12,6 +12,7 @@ const ExpenseList = (props) => {
             expenseamount={expense.expenseamount}
             description={expense.description}
             category={expense.category}
+            deleteHandler={() => props.deleteHandler(expense.id)}
           />
         ))}
       </ListGroup.Item>

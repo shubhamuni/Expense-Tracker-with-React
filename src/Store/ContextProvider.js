@@ -57,7 +57,6 @@ const CartProvider = (props) => {
     localStorage.setItem("name", name);
   };
   const logoutHandler = (token) => {
-    localStorage.removeItem("token");
     localStorage.removeItem("name");
     setToken(null);
   };

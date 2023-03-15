@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import React, { Fragment, useRef } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import classes from "./CompleteProfile.module.css";
 
 const CompleteProfile = () => {
@@ -47,36 +47,41 @@ const CompleteProfile = () => {
       });
   };
   return (
-    <div className={classes.form}>
-      <Form>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-          <Form.Label>Full Name :</Form.Label>
-          <Form.Control
-            type="text"
-            defaultValue={name}
-            placeholder="Enter name"
-            ref={fullNameInputRef}
-            minLength={2}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-          <Form.Label>Profile Photo URL :</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={3}
-            ref={profilePhotoInputRef}
-            minLength={2}
-            required
-          />
-        </Form.Group>
-        <Form.Group>
-          <Button variant="dark" onClick={submitHandler}>
-            Update
-          </Button>
-        </Form.Group>
-      </Form>
-    </div>
+    <Fragment>
+      <NavLink className="text-decoration-none" to="/">
+        Go back
+      </NavLink>
+      <div className={classes.form}>
+        <Form>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Label>Full Name :</Form.Label>
+            <Form.Control
+              type="text"
+              defaultValue={name}
+              placeholder="Enter name"
+              ref={fullNameInputRef}
+              minLength={2}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+            <Form.Label>Profile Photo URL :</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={3}
+              ref={profilePhotoInputRef}
+              minLength={2}
+              required
+            />
+          </Form.Group>
+          <Form.Group>
+            <Button variant="dark" onClick={submitHandler}>
+              Update
+            </Button>
+          </Form.Group>
+        </Form>
+      </div>
+    </Fragment>
   );
 };
 

@@ -3,7 +3,6 @@ import { Button, FormControl, Modal } from "react-bootstrap";
 
 const ResetPassword = () => {
   const [show, setShow] = useState(false);
-  const [sucess, setSucess] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const emailInputRef = useRef();
@@ -27,11 +26,9 @@ const ResetPassword = () => {
     console.log(data);
     if (data.email === enteredemail) {
       setShow(false);
-      setSucess(true);
       alert("Ckeck Your Email");
     } else {
       setShow(true);
-      setSucess(false);
     }
   };
 

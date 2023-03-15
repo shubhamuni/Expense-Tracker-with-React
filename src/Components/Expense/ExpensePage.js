@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Button, Container, FormControl } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 
 function ExpensePage(props) {
@@ -8,7 +8,7 @@ function ExpensePage(props) {
   const categoryInputRef = useRef();
   const addExpenseHandler = () => {
     const expense = {
-      expenseamount: expenseInputRef.current.value,
+      expenseamount: Number(expenseInputRef.current.value),
       description: descriptionInputRef.current.value,
       category: categoryInputRef.current.value,
     };
@@ -23,7 +23,7 @@ function ExpensePage(props) {
         >
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Expense ($)</Form.Label>
-            <Form.Control
+            <FormControl
               type="number"
               placeholder="Enter Expense"
               ref={expenseInputRef}

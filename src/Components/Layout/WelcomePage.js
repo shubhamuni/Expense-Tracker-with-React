@@ -1,11 +1,12 @@
-import { Fragment, useContext } from "react";
+import { Fragment } from "react";
 import { Alert, Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import authContext from "../../Store/AuthContext";
 import classes from "./WelcomePage.module.css";
 
 const WelcomePage = () => {
-  const authCtx = useContext(authContext);
+  const isToken = useSelector((state) => state.token.token);
+  const isAuth = useSelector((state) => state.auth.isAuthenticated);
   const token = localStorage.getItem("token");
   const key = "AIzaSyAZ58t-_MvVDQ3e_pDLaFu4YWhyu7Ix4Xc";
   const verifyEmailHandler = () => {
@@ -34,34 +35,33 @@ const WelcomePage = () => {
       });
   };
 
-  if (authCtx.displayName) {
-    fetch(
-      `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${key}`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          idToken: token, // For logging we require these keys
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+  var username = "";
+  fetch(
+    `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${key}`,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        idToken: token, // For logging we require these keys
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
       }
-    )
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .then((data) => {
-        //name saved into context saved to context
-        authCtx.displayName(data.users[0].displayName);
-      });
-  }
-  const name = localStorage.getItem("name");
+    })
+    .then((data) => {
+      //name saved into context saved to context
+      localStorage.setItem("name", data.users[0].displayName);
+    });
+  username = localStorage.getItem("name");
   return (
     <Fragment>
       <div>
-        {authCtx.isLoggedIn && !name && (
+        {isToken && !username && (
           <Alert key="danger" variant="danger">
             Your Profile is Incomplete....
             <Link
@@ -77,8 +77,8 @@ const WelcomePage = () => {
         )}
       </div>
       <div className={classes.title}>
-        <h1>Welcome to Expense Tracker {name}</h1>
-        {!authCtx.isLoggedIn && (
+        <h1>Welcome to Expense Tracker {username} </h1>
+        {!isAuth && (
           <Link
             to="/authform"
             style={{
@@ -89,7 +89,7 @@ const WelcomePage = () => {
             Please Login or Create Account
           </Link>
         )}
-        {authCtx.isLoggedIn && (
+        {isToken && (
           <Button variant="dark" onClick={verifyEmailHandler}>
             Click here to verify email
           </Button>
