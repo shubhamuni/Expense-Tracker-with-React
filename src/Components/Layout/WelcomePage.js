@@ -6,7 +6,7 @@ import classes from "./WelcomePage.module.css";
 
 const WelcomePage = () => {
   const isToken = useSelector((state) => state.token.token);
-  const isAuth = useSelector((state) => state.auth.isAuthenticated);
+  const email = localStorage.getItem("email");
   const token = localStorage.getItem("token");
   const key = "AIzaSyAZ58t-_MvVDQ3e_pDLaFu4YWhyu7Ix4Xc";
   const verifyEmailHandler = () => {
@@ -31,6 +31,7 @@ const WelcomePage = () => {
       })
       .then((data) => {
         //name saved into context saved to context
+        alert("Email sent successfully");
         console.log(data.email);
       });
   };
@@ -61,6 +62,7 @@ const WelcomePage = () => {
   return (
     <Fragment>
       <div>
+        {isToken && <Alert variant="success">Welcome {email}</Alert>}
         {isToken && !username && (
           <Alert key="danger" variant="danger">
             Your Profile is Incomplete....
@@ -78,7 +80,7 @@ const WelcomePage = () => {
       </div>
       <div className={classes.title}>
         <h1>Welcome to Expense Tracker {username} </h1>
-        {!isAuth && (
+        {!isToken && (
           <Link
             to="/authform"
             style={{

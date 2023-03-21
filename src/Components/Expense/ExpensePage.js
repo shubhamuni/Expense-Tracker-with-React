@@ -22,7 +22,7 @@ function ExpensePage(props) {
           style={{ width: "50rem", marginInline: "15rem", marginTop: "10rem" }}
         >
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Expense ($)</Form.Label>
+            <Form.Label>Expense (₹)</Form.Label>
             <FormControl
               type="number"
               placeholder="Enter Expense"

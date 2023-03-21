@@ -16,6 +16,11 @@ const AuthForm = (props) => {
   const dispatch = useDispatch();
   const handleToken = (token) => {
     dispatch(loginAction.saveToken(token));
+    setTimeout(() => {
+      dispatch(loginAction.removeToken(null));
+      dispatch(authAction.logout());
+      localStorage.removeItem("name");
+    }, 1000 * 60 * 15);
   };
 
   const switchAuthModeHandler = () => {

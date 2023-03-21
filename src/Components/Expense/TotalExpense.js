@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
-import { CSVDownload, CSVLink } from "react-csv";
+import { Button, Table } from "react-bootstrap";
+import { CSVLink } from "react-csv";
 import { useDispatch } from "react-redux";
 import { themeAction } from "../../Store/Themereducer";
 
@@ -8,21 +8,19 @@ const TotalExpense = (props) => {
   const dispatch = useDispatch();
   const [totalExpense, setTotalExpense] = useState(0);
   const [csvData, setCsvData] = useState([]);
-  const generateCsvData = () => {
+
+  const generateCsvData = async () => {
     const headers = [
-      { label: "ID", key: "id" },
       { label: "Category", key: "Category" },
       { label: "Description", key: "description" },
       { label: "Amount", key: "amount" },
     ];
     const data = props.expenses.map((expense) => ({
-      id: expense.id,
       amount: expense.expenseamount,
       description: expense.description,
       category: expense.category,
     }));
-    setCsvData([headers, data]);
-    console.log(csvData);
+    setCsvData([...headers, ...data]);
   };
 
   function calculateTotalExpense() {
@@ -43,22 +41,41 @@ const TotalExpense = (props) => {
   };
   return (
     <div className="p-3 align-items-center">
-      Total Expense: ${totalExpense}
-      {totalExpense > 10000 ? (
-        <Button className="m-3" variant="dark" onClick={themeHandler}>
-          Activate Premium
-        </Button>
-      ) : (
-        ""
-      )}
-      {totalExpense > 10000 && (
-        <Button onClick={generateCsvData}>Download</Button>
-      )}
-      {totalExpense > 10000 && (
-        <CSVLink data={csvData} filename={"expense-list.csv"}>
-          Download CSV
-        </CSVLink>
-      )}
+      <Table striped bordered hover>
+        {totalExpense > 10000 && <h2>For expense above 10,000₹</h2>}
+        <tbody>
+          <tr>
+            <td>Total Expense: ₹{totalExpense}</td>
+            <td>
+              {totalExpense > 10000 ? (
+                <Button variant="dark" onClick={themeHandler}>
+                  Activate Premium
+                </Button>
+              ) : (
+                ""
+              )}
+            </td>
+            <td>
+              {totalExpense > 10000 && (
+                <Button onClick={generateCsvData} variant="dark">
+                  Generate Expense
+                </Button>
+              )}
+            </td>
+            <td>
+              {totalExpense > 10000 && (
+                <CSVLink
+                  data={csvData}
+                  filename={"expense-list.csv"}
+                  style={{ color: "black" }}
+                >
+                  Download CSV
+                </CSVLink>
+              )}
+            </td>
+          </tr>
+        </tbody>
+      </Table>
     </div>
   );
 };

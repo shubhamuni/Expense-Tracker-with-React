@@ -12,7 +12,6 @@ const DisplayExpense = () => {
   email = email.replace(/[^a-zA-Z0-9]/g, "");
 
   const databaseURL = "https://react-api-8342e-default-rtdb.firebaseio.com";
-
   const fetchExpenseHandler = async () => {
     setError(null);
     setLoading(true);

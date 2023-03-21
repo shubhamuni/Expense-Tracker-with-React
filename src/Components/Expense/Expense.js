@@ -1,18 +1,35 @@
 import React from "react";
-import { Button, ListGroup } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 
 export const Expense = (props) => {
   return (
-    <div style={{ width: "50rem" }}>
-      <ListGroup.Item>Expense $: {props.expenseamount}</ListGroup.Item>
-      <ListGroup.Item>Description: {props.description}</ListGroup.Item>
-      <ListGroup.Item>Category: {props.category}</ListGroup.Item>
-      <Button variant="secondary" className="m-2">
-        Edit
-      </Button>
-      <Button variant="dark" onClick={props.deleteHandler}>
-        Delete
-      </Button>
+    <div className="m-5 p-1" style={{ width: "50rem" }}>
+      <Table striped bordered hover size="sm">
+        <thead>
+          <tr>
+            <th>Expense ₹</th>
+            <th>Description</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{props.expenseamount}</td>
+            <td>{props.description}</td>
+            <td>{props.category}</td>
+            <td>
+              <Button variant="dark" onClick={props.deleteHandler}>
+                Delete
+              </Button>
+            </td>
+            <td>
+              <Button variant="dark">Edit</Button>
+            </td>
+          </tr>
+        </tbody>
+      </Table>
     </div>
   );
 };
+
+//
