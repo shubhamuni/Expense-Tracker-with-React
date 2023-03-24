@@ -1,4 +1,6 @@
 import { render, screen } from "@testing-library/react";
+import DisplayExpense from "../Expense/DisplayExpense";
+import ExpenseList from "../Expense/ExpenseList";
 import CompleteProfile from "./CompleteProfile";
 import { Profile } from "./Profile";
 
@@ -28,5 +30,10 @@ describe("Profile Component", () => {
     render(<Profile />);
     const buttonElement = screen.getByText("Submit");
     expect(buttonElement).toBeInTheDocument();
+  });
+  test("renders list of expenses", async () => {
+    render(<DisplayExpense />);
+    const listElement = await screen.findAllByRole("listitem");
+    expect(listElement).toHaveLength(1);
   });
 });
