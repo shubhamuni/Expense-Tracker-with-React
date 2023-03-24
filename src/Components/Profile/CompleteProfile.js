@@ -1,6 +1,6 @@
 import React, { Fragment, useRef } from "react";
 import { Button, Form } from "react-bootstrap";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import classes from "./CompleteProfile.module.css";
 
 const CompleteProfile = () => {
@@ -48,9 +48,6 @@ const CompleteProfile = () => {
   };
   return (
     <Fragment>
-      <NavLink className="text-decoration-none" to="/">
-        Go back
-      </NavLink>
       <div className={classes.form}>
         <Form>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
